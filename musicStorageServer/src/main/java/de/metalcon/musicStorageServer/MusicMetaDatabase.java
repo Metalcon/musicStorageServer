@@ -2,7 +2,7 @@ package de.metalcon.musicStorageServer;
 
 import java.net.UnknownHostException;
 
-import de.utils.MetaDatabase;
+import de.metalcon.utils.metadatabase.MetaDatabase;
 
 /**
  * database for music meta data
