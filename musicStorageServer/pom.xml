@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.metalcon</groupId>
   <artifactId>musicStorageServer</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.2</version>
   
   <build>
     <plugins>
@@ -16,7 +16,22 @@
         </configuration>
   	  </plugin>
     </plugins>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+	    <artifactId>wagon-ssh</artifactId>
+      </extension>
+    </extensions>
   </build>
+  <distributionManagement>
+    <repository>
+      <id>metalcon-repo</id>
+      <uniqueVersion>false</uniqueVersion>
+      <name>Metalcon Repository</name>
+      <url>scp://localhost/metalcon-mvn/</url>
+      <layout>default</layout>
+    </repository>
+  </distributionManagement>
   
   <dependencies>
     <dependency>
@@ -42,13 +57,13 @@
 	</dependency>
 	<dependency>
 		<groupId>de.metalcon.utils</groupId>
-		<artifactId>metaDatabase</artifactId>
-		<version>1.0.0</version>
+		<artifactId>meta-database</artifactId>
+		<version>1.0.2</version>
 	</dependency>
 	<dependency>
 		<groupId>de.metalcon.utils</groupId>
 		<artifactId>form-item-list</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.2</version>
 	</dependency>
   </dependencies>
 </project>
