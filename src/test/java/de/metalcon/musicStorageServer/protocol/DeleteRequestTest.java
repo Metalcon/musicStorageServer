@@ -8,42 +8,41 @@ import org.junit.Test;
 
 import de.metalcon.musicStorageServer.protocol.delete.DeleteRequest;
 import de.metalcon.musicStorageServer.protocol.delete.DeleteResponse;
-import de.metalcon.utils.FormItemList;
+import de.metalcon.utils.formItemList.FormItemList;
 
 public class DeleteRequestTest extends RequestTest {
 
-	private DeleteRequest deleteRequest;
+    private DeleteRequest deleteRequest;
 
-	private void fillRequest(final String musicItemIdentifier) {
-		// create and fill form item list
-		final FormItemList formItemList = new FormItemList();
+    private void fillRequest(final String musicItemIdentifier) {
+        // create and fill form item list
+        final FormItemList formItemList = new FormItemList();
 
-		if (musicItemIdentifier != null) {
-			formItemList.addField(
-					ProtocolConstants.Parameter.Delete.MUSIC_ITEM_IDENTIFIER,
-					musicItemIdentifier);
-		}
+        if (musicItemIdentifier != null) {
+            formItemList.addField(
+                    ProtocolConstants.Parameter.Delete.MUSIC_ITEM_IDENTIFIER,
+                    musicItemIdentifier);
+        }
 
-		// check request and extract the response
-		final DeleteResponse deleteResponse = new DeleteResponse();
-		this.deleteRequest = DeleteRequest.checkRequest(formItemList,
-				deleteResponse);
-		this.extractJson(deleteResponse);
-	}
+        // check request and extract the response
+        final DeleteResponse deleteResponse = new DeleteResponse();
+        deleteRequest =
+                DeleteRequest.checkRequest(formItemList, deleteResponse);
+        extractJson(deleteResponse);
+    }
 
-	@Test
-	public void testDeleteRequest() {
-		this.fillRequest(VALID_IDENTIFIER);
-		assertNotNull(this.deleteRequest);
-		assertEquals(VALID_IDENTIFIER,
-				this.deleteRequest.getMusicItemIdentifier());
-	}
+    @Test
+    public void testDeleteRequest() {
+        fillRequest(VALID_IDENTIFIER);
+        assertNotNull(deleteRequest);
+        assertEquals(VALID_IDENTIFIER, deleteRequest.getMusicItemIdentifier());
+    }
 
-	@Test
-	public void testMusicItemIdentifierMissing() {
-		this.fillRequest(null);
-		this.checkForMissingParameterMessage(ProtocolConstants.Parameter.Delete.MUSIC_ITEM_IDENTIFIER);
-		assertNull(this.deleteRequest);
-	}
+    @Test
+    public void testMusicItemIdentifierMissing() {
+        fillRequest(null);
+        checkForMissingParameterMessage(ProtocolConstants.Parameter.Delete.MUSIC_ITEM_IDENTIFIER);
+        assertNull(deleteRequest);
+    }
 
 }

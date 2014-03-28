@@ -1,8 +1,30 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>de.metalcon</groupId>
+    <artifactId>pom</artifactId>
+    <version>0.0.1</version>
+  </parent>
+
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.metalcon</groupId>
   <artifactId>music-storage-server</artifactId>
-  <version>1.0.2</version>
+  <version>0.0.1</version>
+
+  <name>MusicStorageServer</name>
+  <description>Server for storing music</description>
+  <url>https://github.com/Metalcon/musicStorageServer</url>
+
+
+  <repositories>
+    <!-- Metalcon repository to resolve dependencies from -->
+    <repository>
+      <id>metalcon-depend</id>
+      <url>http://develop.metalcon.de:8080/mvn/</url>
+    </repository>
+  </repositories>
+
+
   
   <build>
     <plugins>
@@ -23,15 +45,6 @@
       </extension>
     </extensions>
   </build>
-  <distributionManagement>
-    <repository>
-      <id>metalcon-repo</id>
-      <uniqueVersion>false</uniqueVersion>
-      <name>Metalcon Repository</name>
-      <url>scp://localhost/metalcon-mvn/</url>
-      <layout>default</layout>
-    </repository>
-  </distributionManagement>
   
   <dependencies>
     <dependency>
@@ -56,13 +69,13 @@
 	  <version>2.4</version>
 	</dependency>
 	<dependency>
-		<groupId>de.metalcon.utils</groupId>
-		<artifactId>meta-database</artifactId>
+		<groupId>de.metalcon</groupId>
+		<artifactId>utils-meta-database</artifactId>
 		<version>1.0.2</version>
 	</dependency>
 	<dependency>
-		<groupId>de.metalcon.utils</groupId>
-		<artifactId>form-item-list</artifactId>
+		<groupId>de.metalcon</groupId>
+		<artifactId>utils-form-item-list</artifactId>
 		<version>1.0.2</version>
 	</dependency>
   </dependencies>
