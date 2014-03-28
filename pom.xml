@@ -25,6 +25,12 @@
   </repositories>
 
 
+  <properties>
+    <!-- version of ZMQ worker -->
+    <zmq.worker.version>0.2.1</zmq.worker.version>
+    <music.streaming.server.api.version>0.0.1</music.streaming.server.api.version>
+  </properties>
+
   
   <build>
     <plugins>
@@ -78,5 +84,15 @@
 		<artifactId>utils-form-item-list</artifactId>
 		<version>1.0.2</version>
 	</dependency>
+    <dependency>
+      <groupId>de.metalcon</groupId>
+      <artifactId>zmq-worker</artifactId>
+      <version>${zmq.worker.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>de.metalcon</groupId>
+      <artifactId>music-streaming-server-api</artifactId>
+      <version>${music.streaming.server.api.version}</version>
+    </dependency>
   </dependencies>
 </project>
