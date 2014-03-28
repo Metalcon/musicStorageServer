@@ -9,90 +9,92 @@ import org.junit.Test;
 import de.metalcon.musicStorageServer.MusicItemVersion;
 import de.metalcon.musicStorageServer.protocol.read.ReadMusicItemRequest;
 import de.metalcon.musicStorageServer.protocol.read.ReadResponse;
-import de.metalcon.utils.FormItemList;
+import de.metalcon.utils.formItemList.FormItemList;
 
 public class ReadMusicItemRequestTest extends RequestTest {
 
-	private static final MusicItemVersion VALID_MUSIC_ITEM_VERSION_ORIGINAL = MusicItemVersion.ORIGINAL;
-	private static final MusicItemVersion VALID_MUSIC_ITEM_VERSION_BASIS = MusicItemVersion.BASIS;
-	private static final MusicItemVersion VALID_MUSIC_ITEM_VERSION_STREAM = MusicItemVersion.STREAM;
+    private static final MusicItemVersion VALID_MUSIC_ITEM_VERSION_ORIGINAL =
+            MusicItemVersion.ORIGINAL;
 
-	private static final String INVALID_MUSIC_ITEM_VERSION = "nuff";
+    private static final MusicItemVersion VALID_MUSIC_ITEM_VERSION_BASIS =
+            MusicItemVersion.BASIS;
 
-	private ReadMusicItemRequest readRequest;
+    private static final MusicItemVersion VALID_MUSIC_ITEM_VERSION_STREAM =
+            MusicItemVersion.STREAM;
 
-	private void fillRequest(final String musicItemIdentifier,
-			final String musicItemVersion) {
-		// create and fill form item list
-		final FormItemList formItemList = new FormItemList();
+    private static final String INVALID_MUSIC_ITEM_VERSION = "nuff";
 
-		if (musicItemIdentifier != null) {
-			formItemList.addField(
-					ProtocolConstants.Parameter.Read.MUSIC_ITEM_IDENTIFIER,
-					musicItemIdentifier);
-		}
-		if (musicItemVersion != null) {
-			formItemList.addField(
-					ProtocolConstants.Parameter.Read.MUSIC_ITEM_VERSION,
-					musicItemVersion);
-		}
+    private ReadMusicItemRequest readRequest;
 
-		// check request and extract the response
-		final ReadResponse readResponse = new ReadResponse();
-		this.readRequest = ReadMusicItemRequest.checkRequest(formItemList,
-				readResponse);
-		this.extractJson(readResponse);
-	}
+    private void fillRequest(
+            final String musicItemIdentifier,
+            final String musicItemVersion) {
+        // create and fill form item list
+        final FormItemList formItemList = new FormItemList();
 
-	@Test
-	public void testReadMusicItemRequest() {
-		// original music file
-		this.fillRequest(VALID_IDENTIFIER,
-				VALID_MUSIC_ITEM_VERSION_ORIGINAL.toString());
-		assertNotNull(this.readRequest);
-		assertEquals(VALID_IDENTIFIER,
-				this.readRequest.getMusicItemIdentifier());
-		assertEquals(VALID_MUSIC_ITEM_VERSION_ORIGINAL,
-				this.readRequest.getMusicItemVersion());
+        if (musicItemIdentifier != null) {
+            formItemList.addField(
+                    ProtocolConstants.Parameter.Read.MUSIC_ITEM_IDENTIFIER,
+                    musicItemIdentifier);
+        }
+        if (musicItemVersion != null) {
+            formItemList.addField(
+                    ProtocolConstants.Parameter.Read.MUSIC_ITEM_VERSION,
+                    musicItemVersion);
+        }
 
-		// converted (basis version)
-		this.fillRequest(VALID_IDENTIFIER,
-				VALID_MUSIC_ITEM_VERSION_BASIS.toString());
-		assertNotNull(this.readRequest);
-		assertEquals(VALID_IDENTIFIER,
-				this.readRequest.getMusicItemIdentifier());
-		assertEquals(VALID_MUSIC_ITEM_VERSION_BASIS,
-				this.readRequest.getMusicItemVersion());
+        // check request and extract the response
+        final ReadResponse readResponse = new ReadResponse();
+        readRequest =
+                ReadMusicItemRequest.checkRequest(formItemList, readResponse);
+        extractJson(readResponse);
+    }
 
-		// converted (streaming version)
-		this.fillRequest(VALID_IDENTIFIER,
-				VALID_MUSIC_ITEM_VERSION_STREAM.toString());
-		assertNotNull(this.readRequest);
-		assertEquals(VALID_IDENTIFIER,
-				this.readRequest.getMusicItemIdentifier());
-		assertEquals(VALID_MUSIC_ITEM_VERSION_STREAM,
-				this.readRequest.getMusicItemVersion());
-	}
+    @Test
+    public void testReadMusicItemRequest() {
+        // original music file
+        fillRequest(VALID_IDENTIFIER,
+                VALID_MUSIC_ITEM_VERSION_ORIGINAL.toString());
+        assertNotNull(readRequest);
+        assertEquals(VALID_IDENTIFIER, readRequest.getMusicItemIdentifier());
+        assertEquals(VALID_MUSIC_ITEM_VERSION_ORIGINAL,
+                readRequest.getMusicItemVersion());
 
-	@Test
-	public void testMusicItemIdentifierMissing() {
-		this.fillRequest(null, VALID_MUSIC_ITEM_VERSION_ORIGINAL.toString());
-		this.checkForMissingParameterMessage(ProtocolConstants.Parameter.Read.MUSIC_ITEM_IDENTIFIER);
-		assertNull(this.readRequest);
-	}
+        // converted (basis version)
+        fillRequest(VALID_IDENTIFIER, VALID_MUSIC_ITEM_VERSION_BASIS.toString());
+        assertNotNull(readRequest);
+        assertEquals(VALID_IDENTIFIER, readRequest.getMusicItemIdentifier());
+        assertEquals(VALID_MUSIC_ITEM_VERSION_BASIS,
+                readRequest.getMusicItemVersion());
 
-	@Test
-	public void testMusicItemVersionMissing() {
-		this.fillRequest(VALID_IDENTIFIER, null);
-		this.checkForMissingParameterMessage(ProtocolConstants.Parameter.Read.MUSIC_ITEM_VERSION);
-		assertNull(this.readRequest);
-	}
+        // converted (streaming version)
+        fillRequest(VALID_IDENTIFIER,
+                VALID_MUSIC_ITEM_VERSION_STREAM.toString());
+        assertNotNull(readRequest);
+        assertEquals(VALID_IDENTIFIER, readRequest.getMusicItemIdentifier());
+        assertEquals(VALID_MUSIC_ITEM_VERSION_STREAM,
+                readRequest.getMusicItemVersion());
+    }
 
-	@Test
-	public void testMusicItemVersionInvalid() {
-		this.fillRequest(VALID_IDENTIFIER, INVALID_MUSIC_ITEM_VERSION);
-		this.checkForStatusMessage(ProtocolConstants.StatusMessage.Read.MUSIC_ITEM_VERSION_INVALID);
-		assertNull(this.readRequest);
-	}
+    @Test
+    public void testMusicItemIdentifierMissing() {
+        fillRequest(null, VALID_MUSIC_ITEM_VERSION_ORIGINAL.toString());
+        checkForMissingParameterMessage(ProtocolConstants.Parameter.Read.MUSIC_ITEM_IDENTIFIER);
+        assertNull(readRequest);
+    }
+
+    @Test
+    public void testMusicItemVersionMissing() {
+        fillRequest(VALID_IDENTIFIER, null);
+        checkForMissingParameterMessage(ProtocolConstants.Parameter.Read.MUSIC_ITEM_VERSION);
+        assertNull(readRequest);
+    }
+
+    @Test
+    public void testMusicItemVersionInvalid() {
+        fillRequest(VALID_IDENTIFIER, INVALID_MUSIC_ITEM_VERSION);
+        checkForStatusMessage(ProtocolConstants.StatusMessage.Read.MUSIC_ITEM_VERSION_INVALID);
+        assertNull(readRequest);
+    }
 
 }
