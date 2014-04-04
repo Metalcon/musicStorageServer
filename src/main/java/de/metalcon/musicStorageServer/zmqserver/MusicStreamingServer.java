@@ -1,6 +1,11 @@
 package de.metalcon.musicStorageServer.zmqserver;
 
-import de.metalcon.zmqworker.ZMQWorker;
+import net.hh.request_dispatcher.server.ZmqWorker;
+
+import org.zeromq.ZMQ;
+
+import de.metalcon.musicstreamingserver.api.requests.MusicStreamingRequest;
+import de.metalcon.musicstreamingserver.api.responses.MusicStreamingResponse;
 
 /**
  * launcher for the zmq server
@@ -12,14 +17,11 @@ public class MusicStreamingServer {
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
-        ZMQWorker worker =
-                new ZMQWorker("tcp://127.0.0.1:6666",
+        ZMQ.Context ctx = ZMQ.context(1);
+        ZmqWorker<MusicStreamingRequest, MusicStreamingResponse> worker =
+                new ZmqWorker<MusicStreamingRequest, MusicStreamingResponse>(
+                        ctx, "tcp://127.0.0.1:6666",
                         new MusicStreamingRequestHandler());
-        if (!worker.start()) {
-            throw new IllegalStateException("failed to start worker");
-        }
-        worker.waitForShutdown();
-        worker.stop();
+        worker.run();
     }
-
 }

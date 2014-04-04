@@ -6,9 +6,9 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import de.metalcon.musicStorageServer.MusicItemVersion;
 import de.metalcon.musicStorageServer.protocol.read.ReadMusicItemRequest;
 import de.metalcon.musicStorageServer.protocol.read.ReadResponse;
+import de.metalcon.musicstreamingserver.api.MusicItemVersion;
 import de.metalcon.utils.formItemList.FormItemList;
 
 public class ReadMusicItemRequestTest extends RequestTest {

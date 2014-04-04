@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.metalcon</groupId>
   <artifactId>music-storage-server</artifactId>
-  <version>0.0.1</version>
+  <version>0.1.0</version>
 
   <name>MusicStorageServer</name>
   <description>Server for storing music</description>
@@ -28,7 +28,7 @@
   <properties>
     <!-- version of ZMQ worker -->
     <zmq.worker.version>0.2.1</zmq.worker.version>
-    <music.streaming.server.api.version>0.0.1</music.streaming.server.api.version>
+    <music.streaming.server.api.version>0.1.0-SNAPSHOT</music.streaming.server.api.version>
   </properties>
 
   
@@ -70,11 +70,6 @@
 	  <version>2.11.2</version>
 	</dependency>
 	<dependency>
-	  <groupId>commons-io</groupId>
-	  <artifactId>commons-io</artifactId>
-	  <version>2.4</version>
-	</dependency>
-	<dependency>
 		<groupId>de.metalcon</groupId>
 		<artifactId>utils-meta-database</artifactId>
 		<version>1.0.2</version>
@@ -84,11 +79,20 @@
 		<artifactId>utils-form-item-list</artifactId>
 		<version>1.0.2</version>
 	</dependency>
-    <dependency>
+<!--     <dependency>
       <groupId>de.metalcon</groupId>
       <artifactId>zmq-worker</artifactId>
       <version>${zmq.worker.version}</version>
     </dependency>
+ -->
+    <!-- zmq bindings -->
+    <dependency>
+      <groupId>net.hh</groupId>
+      <artifactId>RequestDispatcher</artifactId>
+      <version>1.1.0</version>
+    </dependency>
+
+
     <dependency>
       <groupId>de.metalcon</groupId>
       <artifactId>music-streaming-server-api</artifactId>

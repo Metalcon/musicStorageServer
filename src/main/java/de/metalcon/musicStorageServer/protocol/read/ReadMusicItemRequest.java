@@ -1,7 +1,7 @@
 package de.metalcon.musicStorageServer.protocol.read;
 
-import de.metalcon.musicStorageServer.MusicItemVersion;
 import de.metalcon.musicStorageServer.protocol.ProtocolConstants;
+import de.metalcon.musicstreamingserver.api.MusicItemVersion;
 import de.metalcon.utils.formItemList.FormItemList;
 
 /**
